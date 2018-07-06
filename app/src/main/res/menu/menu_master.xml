@@ -1,0 +1,36 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="johnschroederregis.johnschroederassignment1.Master">
+
+
+
+
+    <ImageButton
+        android:id="@+id/btn_slide"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:background="@null"
+        android:scaleType="centerInside"
+        android:paddingRight="50dp"
+        android:onClick="toggleMenu"
+        android:paddingTop="4dp"/>
+
+
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never"></item>
+
+    <item
+        android:id="@+id/hideoption"
+        android:orderInCategory="100"
+        android:title="@string/hideactionbar"
+        app:showAsAction="ifRoom"></item>
+
+
+
+
+</menu>

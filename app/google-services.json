@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "191164229922",
+    "firebase_url": "https://contacts-course-project.firebaseio.com",
+    "project_id": "contacts-course-project",
+    "storage_bucket": "contacts-course-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:191164229922:android:cc3d417e74da7101",
+        "android_client_info": {
+          "package_name": "johnschroederregis.johnschroederassignment1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "191164229922-7p90aik0l4e7u89862hf1phvhu16h8it.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3by2HBwpBSmXUXw3TjqzthRFO9rlU7Oc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

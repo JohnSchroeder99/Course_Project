@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="johnschroederregis.johnschroederassignment1"    >
+    package="johnschroederregis.johnschroederassignment1">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name= "android.permission.ACCESS_NETWORK_STATE" />
+
+    <supports-screens android:requiresSmallestWidthDp="600" />
+
     <meta-data
-        tools:replace="android:value"
         android:name="android.support.VERSION"
-        android:value="26.1.0" />
+        android:value="26.1.0"
+        tools:replace="android:value"/>
+
+
+    <meta-data
+        android:name="io.fabric.ApiKey"
+        android:value="bb40c38ad1484ae050701d81cc32f04d38e93daf"
+        />
 
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,7 +27,7 @@
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
         <activity
-            android:name= ".Master"
+            android:name=".Master"
             android:label="Item List"
             android:theme="@style/MyTheme.NoActionBar">
             <intent-filter>
@@ -33,7 +45,28 @@
             android:label="@string/title_activity_add_item"
             android:theme="@style/AddItemStyle" />
 
-    </application>
 
+
+        <receiver
+            android:name="MasterFragment$MyReceiver"
+            android:enabled="true"
+            android:exported="false">
+
+            <intent-filter>
+                <action android:name="android.intent.action.GROUPS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".ItemPackageModel.WebCallService"></service>
+        
+        <provider
+            android:authorities="johnschroederregis.johnschroederassignment1.database.ContentProvider"
+            android:name=".database.ContentProvider"></provider>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="bb40c38ad1484ae050701d81cc32f04d38e93daf" />
+    </application>
 
 </manifest>

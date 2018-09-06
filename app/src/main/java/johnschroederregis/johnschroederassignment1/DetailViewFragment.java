@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 import johnschroederregis.johnschroederassignment1.ItemPackageModel.ItemSrvc;
@@ -20,13 +23,16 @@ public class DetailViewFragment extends Fragment {
     public DetailViewFragment() {
     }
 
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final DatabaseReference ref = database.getReference();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail_view, container, false);
 
         //when this fragment is loaded create an intent that can tap into global data from masterfragment intents and grab the context of what "item" is intialized too in the masterfragment
-        ItemServiceImplementation itemsrvc = new ItemServiceImplementation(rootView.getContext());
+       /* ItemServiceImplementation itemsrvc = new ItemServiceImplementation(rootView.getContext());
         ArrayList<String> alist= new ArrayList<String>();
         alist = (ArrayList<String>) itemsrvc.retrieveDatabaseItemDesc2();
 
@@ -34,15 +40,20 @@ public class DetailViewFragment extends Fragment {
         int selected =0;
 
         String item = alist.get(intent.getIntExtra("index", selected));
-
-        TextView thingwehavedetailed = rootView.findViewById(R.id.detail_text);
-        thingwehavedetailed.setText(item);
-
-       /* Intent intent = getActivity().getIntent();
-        String item = intent.getStringExtra("itemDesc");
-        TextView thingwehavedetailed = rootView.findViewById(R.id.detail_text);
-        thingwehavedetailed.setText(item);
         */
+
+
+        Intent intent = getActivity().getIntent();
+        String childClickedFromMasters = intent.getStringExtra("ItemClicked");
+
+
+        TextView thingwehavedetailed = rootView.findViewById(R.id.detail_text);
+        String childClicked = ref.child(childClickedFromMasters).getKey();
+
+
+        thingwehavedetailed.setText(childClicked);
+
+
         return rootView;
     }
 }

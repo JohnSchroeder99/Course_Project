@@ -23,9 +23,10 @@ public class ItemServiceImplementation extends SQLiteOpenHelper implements ItemS
 
     private final String fileName = "List1.sio";
     private final String fileName2 = "List2.sio";
-    private List<String> itemArrayList = new ArrayList<String>();
+    private ArrayList<String> itemArrayList = new ArrayList<String>();
     private List<String> itemArrayList2 = new ArrayList<String>();
     private Context appContext;
+    public final static String tableName =  "listItems";
 
     private static final String DBNAME = "ListItems";
     private static final int DBVERSION = 1;
@@ -45,29 +46,29 @@ public class ItemServiceImplementation extends SQLiteOpenHelper implements ItemS
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         Log.d("DataBase1", "on upgrade");
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS listItems");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ tableName);
         onCreate(sqLiteDatabase);
     }
 
-    public String addItemDatabase(String a, String b){
+    public void addItemDatabase(String a, String b){
 
-        Log.d("DataBase1", "adding items to database");
+        Log.d("ContProv", "adding items to database");
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put("itemName", a);
-        values.put("itemDescription", b);
-        long rowOfInsertId =  sqLiteDatabase.insert("listItems", null, values);
+        Log.d("ContProv", "values inserted into db "+values.toString());
+        long rowOfInsertId =  sqLiteDatabase.insert(tableName, null, values);
         sqLiteDatabase.close();
-        return a;
+        Log.d("ContProv", "adding items to database");
+        return;
     }
 
 
-    public List<String> retrieveDatabaseItems1(){
+    public ArrayList<String> retrieveDatabaseItems1(){
         Log.d("DataBase1", "retrieve database item 1");
-        List<String> itemArray1 = new ArrayList<String>();
+        ArrayList<String> itemArray1 = new ArrayList<String>();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.query("listItems", new String[] {"itemName","itemDescription"},
+        Cursor cursor = sqLiteDatabase.query(tableName, new String[] {"itemName","itemDescription"},
                 null, null, null, null, null, null);
         Log.d("DataBase1", "retrieve database item after cursor made");
         try{
@@ -77,6 +78,8 @@ public class ItemServiceImplementation extends SQLiteOpenHelper implements ItemS
                 cursor.moveToNext();
                 Log.d("DataBase1", "while loop ");
             }
+
+            Log.d("DataBase1", cursor.getColumnName(0).toString());
             cursor.close();
         }catch(Exception e){
             Log.d("DataBase1", "nothin in database exception 1");
@@ -88,7 +91,7 @@ public class ItemServiceImplementation extends SQLiteOpenHelper implements ItemS
         Log.d("DataBase1", "retrieve database item Description");
         List<String> itemArray1 = new ArrayList<String>();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.query("listItems", new String[] {"itemName","itemDescription"},
+        Cursor cursor = sqLiteDatabase.query(tableName, new String[] {"itemName","itemDescription"},
                 null, null, null, null, null, null);
         Log.d("DataBase1", "retrieve database item after cursor made 2");
         try{
@@ -116,7 +119,6 @@ public class ItemServiceImplementation extends SQLiteOpenHelper implements ItemS
             ObjectInputStream ois = new ObjectInputStream(appContext.openFileInput(fileName));
             itemArrayList = (ArrayList<String>) ois.readObject();
             ois.close();
-
             ObjectInputStream ois2 = new ObjectInputStream(appContext.openFileInput(fileName2));
             itemArrayList2 = (ArrayList<String>) ois2.readObject();
             ois2.close();
@@ -132,7 +134,6 @@ public class ItemServiceImplementation extends SQLiteOpenHelper implements ItemS
             oos.writeObject(itemArrayList);
             oos.flush();
             oos.close();
-
             ObjectOutputStream oos2 = new ObjectOutputStream(appContext.openFileOutput(fileName2, Context.MODE_PRIVATE));
             oos2.writeObject(itemArrayList2);
             oos2.flush();
@@ -142,7 +143,7 @@ public class ItemServiceImplementation extends SQLiteOpenHelper implements ItemS
         }
     }
 
-    public List<String> retrieveItemsInList() {
+    public ArrayList<String> retrieveItemsInList() {
         Log.d("A1", "retrieving items in list array1");
         return itemArrayList;
     }

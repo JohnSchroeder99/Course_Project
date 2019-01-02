@@ -1,6 +1,6 @@
 # Course_Project
 ## Course Project for Enterprise Android Development
-### This project includes conceps that deal with 
+### This project includes concepts that deal with 
 * broadcasters
 * webservices
 * Firebase
